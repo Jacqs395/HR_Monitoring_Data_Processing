@@ -8,7 +8,7 @@ def filter_nondigits(data: list) -> list:
     Returns:
         list[int]: list of integers, with all non-digit strings removed
     """
-    if len(data) == 0:
+    if len(data) == 0 or "":
         return data
     
     new_data = []
@@ -26,4 +26,9 @@ print(filter_nondigits(in_data))
 
 
 def filter_outliers(data: list) -> list:
-    pass
+    new_data = []
+    for element in data:
+        if element > 30 and element < 250:
+            new_data.append(element)
+    return new_data
+

@@ -32,12 +32,39 @@ def run(filename: str) -> None:
     """  
     data = []
 
-    # open file and read into the `data` list
-    ...
+    # open file and read into the `data` list. Then close file.
+    file = open(filename)
+    for line in file:
+        data.append(line)
+    file.close()
+
+    # filter non digits, then filter outliers
+    data = filter_nondigits (data)
+    data = filter_outliers (data)
+
+    # calculate maximums, averages and stdevs, with a window size of 6
+    maximums = window_max (data, 6)
+    averages = window_average (data, 6)
+    stdevs = window_stddev (data, 6)
+
+    #save each plot to 'images/' folder, then close plot files
+    fig, ax = plt.subplots()
+    ax.plot(maximums)
+    plt.savefig("images/maximums.png")
+    plt.close
+
+    fig, ax = plt.subplots()
+    ax.plot(averages)
+    plt.savefig("images/averages.png")
+    plt.close
+
+    fig, ax = plt.subplots()
+    ax.plot(stdevs)
+    plt.savefig("images/stdevs.png")
+    plt.close
 
     # return all 3 lists
-    ...
-
+    return maximums, averages, stdevs
 
 if __name__ == "__main__":
     run("data/data1.txt")
